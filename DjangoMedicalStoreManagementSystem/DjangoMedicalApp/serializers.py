@@ -1,8 +1,19 @@
 from rest_framework import serializers
-from DjangoMedicalApp.models import Company
+from DjangoMedicalApp.models import Company,CompanyBank
 
-class CompanySerializer(serializers.HyperlinkedModelSerializer):
+class CompanySerializer(serializers.ModelSerializer):
     class Meta:
         model = Company
-        fields=["name","license_no","address","contact_no","email","description"]
+        fields="__all__"
+
+class CompanyBankSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CompanyBank
+        fields="__all__"
+    
+    def to_representation(self,instance):
+        response=super().to_representation(instance)
+        response["company"] = CompanySerializer(instance.company_id).data
+
+        return response
 
