@@ -17,12 +17,14 @@ from django.contrib import admin
 from django.urls import path,include
 from rest_framework import routers
 from DjangoMedicalApp import views
-from DjangoMedicalApp.views import CompanyNameViewSet
+from DjangoMedicalApp.views import *
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 router=routers.DefaultRouter()
 router.register("company",views.CompanyViewSet, basename="company")
 router.register("companybank",views.CompanyBankViewset, basename="companybank")
+router.register("medicine",views.MedicineViewset, basename="medicine")
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
